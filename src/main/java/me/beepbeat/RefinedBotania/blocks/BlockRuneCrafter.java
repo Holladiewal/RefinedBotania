@@ -27,5 +27,5 @@ public class BlockRuneCrafter extends BlockNode {
         return true;
     }
 
-    
+
 }
