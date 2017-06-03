@@ -31,6 +31,12 @@ public class NodeRuneCrafter extends NetworkNodeCrafter {
         if (firstTick){rebuildPatterns();}
         firstTick = false;
 
+        if (isTriggeredAutocrafting()  && this.network != null){
+            for (RecipeRuneAltar rec : actualRecipes) {
+                System.out.println(this.network.getCraftingManager().schedule(rec.getOutput(), rec.getOutput().getCount(), 3).isValid());
+            }
+        }
+
     }
 
     private void rebuildPatterns() {
