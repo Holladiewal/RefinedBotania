@@ -10,14 +10,16 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import vazkii.botania.api.mana.IManaReceiver;
 
 import javax.annotation.Nonnull;
 
 /**
  * Created by beepbeat/holladiewal on 28.05.2017.
  */
-public class TileRuneCrafter extends TileNode<NetworkNodeCrafter> {
+public class TileRuneCrafter extends TileNode<NetworkNodeCrafter> implements IManaReceiver {
     public static final TileDataParameter TRIGGERED_AUTOCRAFTING;
+    public int maxMana = 5000, currentMana = 0;
 
     public TileRuneCrafter() {
         this.dataManager.addWatchedParameter(TRIGGERED_AUTOCRAFTING);
@@ -44,4 +46,29 @@ public class TileRuneCrafter extends TileNode<NetworkNodeCrafter> {
     }
 
 
+    @Override
+    public boolean isFull() {
+        return getCurrentMana() >= maxMana;
+    }
+
+    @Override
+    public void recieveMana(int i) {
+        currentMana += i;
+    }
+
+    @Override
+    public boolean canRecieveManaFromBursts() {
+        return true;
+    }
+
+    @Override
+    public int getCurrentMana() {
+        return currentMana;
+    }
+
+    public boolean useMana(int i){
+        if (i > getCurrentMana()) return false;
+        currentMana -= i;
+        return true;
+    }
 }
