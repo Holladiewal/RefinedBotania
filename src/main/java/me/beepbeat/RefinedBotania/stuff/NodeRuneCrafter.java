@@ -53,7 +53,7 @@ public class NodeRuneCrafter extends NetworkNodeCrafter {
                         tmp.add(obj);
                     }
                 }
-                actualRecipes.add(new RecipeRuneAltar(rec.getOutput(), rec.getManaUsage(), tmp));
+                actualRecipes.add(new RecipeRuneAltar(rec.getOutput(), rec.getManaUsage(), tmp.toArray()));
                 continue;
             }
 
